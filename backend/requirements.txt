@@ -1,0 +1,14 @@
+fastapi
+sqlalchemy
+alembic
+authlib
+httpx
+python-dotenv
+pydantic
+pytest
+pytest-cov
+selenium
+passlib[bcrypt]
+uvicorn[standard]
+python-jose[cryptography]
+psycopg2-binary
