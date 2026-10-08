@@ -4,11 +4,12 @@ alembic
 authlib
 httpx
 python-dotenv
-pydantic
+pydantic[email]
 pytest
 pytest-cov
 selenium
 passlib[bcrypt]
+bcrypt==4.0.1
 uvicorn[standard]
 python-jose[cryptography]
 psycopg2-binary

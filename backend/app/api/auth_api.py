@@ -1,31 +1,17 @@
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.models.user_model import User
-from app.schemas.user_schema import UsuarioCreate
-from app.core.security import hash_senha
+from app.core.database import get_db
+from app.schemas.user_schema import UsuarioCreate, UsuarioOut
+from app.services import auth_service
+
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-def email_ja_cadastrado(db: Session, email: str) -> bool:
-    return db.query(User).filter(User.email == email).first() is not None
-
-
-def validar_dados_cadastro(dados: UsuarioCreate) -> None:
-    if len(dados.senha) < 8:
-        raise ValueError("A senha deve ter pelo menos 8 caracteres")
-
-
-def criar_usuario(db: Session, dados: UsuarioCreate) -> User:
-    validar_dados_cadastro(dados)
-
-    if email_ja_cadastrado(db, dados.email):
-        raise ValueError("Email já cadastrado")
-
-    usuario = User(
-        nome=dados.nome,
-        email=dados.email,
-        senha_hash=hash_senha(dados.senha),
-    )
-    db.add(usuario)
-    db.commit()
-    db.refresh(usuario)
+@router.post("/register", response_model=UsuarioOut, status_code=status.HTTP_201_CREATED)
+def registrar(dados: UsuarioCreate, db: Session = Depends(get_db)):
+    try:
+        usuario = auth_service.criar_usuario(db, dados)
+    except ValueError as erro:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(erro))
     return usuario
