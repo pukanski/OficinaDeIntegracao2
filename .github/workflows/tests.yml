@@ -42,13 +42,13 @@ jobs:
       - name: Rodar migrações no banco de teste
         working-directory: backend
         env:
-          DATABASE_URL: postgresql+psycopg2://user123:123456@localhost:5432/ellpDb
+          DATABASE_URL: postgresql+psycopg2://user123:123456@localhost:5433/ellpDbTest
         run: alembic upgrade head
 
       - name: Rodar testes unitários e de integração com cobertura
         working-directory: backend
         env:
-          DATABASE_URL: postgresql+psycopg2://user123:123456@localhost:5432/ellpDb
+          DATABASE_URL: postgresql+psycopg2://user123:123456@localhost:5433/ellpDbTest
           SECRET_KEY: chaveTeste
           ALGORITHM: HS256
         run: pytest --cov=app tests/ --cov-report=term-missing
