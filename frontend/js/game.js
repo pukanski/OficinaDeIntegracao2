@@ -1,6 +1,6 @@
 import { enviarProgresso, exigirUsuario, limparToken, listarFases } from "./api.js";
 import { renderizarGrid } from "./grid.js";
-import { chegou, mover } from "./movimento.js";
+import { chegou, mover } from "./movimentos.js";
 
 const TECLAS = {
   ArrowUp: "cima",
