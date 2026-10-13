@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.models.user_model import User
 from app.schemas.user_schema import UsuarioCreate
@@ -45,3 +46,22 @@ def autenticar_usuario(db: Session, email: str, senha: str) -> User | None:
 
 def gerar_token_para_usuario(usuario: User) -> str:
     return criar_access_token({"sub": str(usuario.id), "email": usuario.email})
+
+def login_ou_criar_usuario_google(db: Session, google_id: str, email: str, nome: str) -> User:
+    """Chamar apenas com e-mail já verificado pelo Google (vincular contas depende disso)."""
+    email = email.strip().lower()
+
+    usuario = db.query(User).filter(User.google_id == google_id).first()
+    if usuario:
+        return usuario
+
+    usuario = db.query(User).filter(func.lower(User.email) == email).first()
+    if usuario:
+        usuario.google_id = google_id  # vincula a conta existente
+    else:
+        usuario = User(nome=nome, email=email, google_id=google_id, senha_hash=None)
+        db.add(usuario)
+
+    db.commit()
+    db.refresh(usuario)
+    return usuario

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ELLP - Painel de desempenho</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <p id="carregando">Carregando...</p>
+
+  <main id="conteudo" class="painel" hidden>
+    <header>
+      <h1>Painel de desempenho</h1>
+      <a href="index.html">Voltar ao jogo</a>
+      <button id="btn-sair" type="button">Sair</button>
+    </header>
+
+    <p id="erro" role="alert" hidden></p>
+
+    <section class="cartoes">
+      <div class="cartao">
+        <span class="rotulo">Fases concluídas</span>
+        <strong id="fases-concluidas" data-testid="fases-concluidas"></strong>
+      </div>
+      <div class="cartao">
+        <span class="rotulo">Tentativas</span>
+        <strong id="total-tentativas" data-testid="total-tentativas"></strong>
+      </div>
+      <div class="cartao">
+        <span class="rotulo">Tempo gasto</span>
+        <strong id="tempo-total" data-testid="tempo-total"></strong>
+      </div>
+    </section>
+
+    <table class="tabela-fases">
+      <thead>
+        <tr><th>Fase</th><th>Situação</th><th>Tentativas</th><th>Tempo</th></tr>
+      </thead>
+      <tbody id="tabela-fases"></tbody>
+    </table>
+  </main>
+
+  <script type="module" src="js/painel.js"></script>
+</body>
+</html>

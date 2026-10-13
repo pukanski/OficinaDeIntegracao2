@@ -13,3 +13,7 @@ bcrypt==4.0.1
 uvicorn[standard]
 python-jose[cryptography]
 psycopg2-binary
+authlib
+itsdangerous
+httpx
+python-multipart

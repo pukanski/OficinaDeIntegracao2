@@ -13,6 +13,7 @@ class Settings:
     GOOGLE_CLIENT_SECRET: str = os.getenv("GOOGLE_CLIENT_SECRET")
     GOOGLE_REDIRECT_URI: str = os.getenv("GOOGLE_REDIRECT_URI")
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 
 settings = Settings()

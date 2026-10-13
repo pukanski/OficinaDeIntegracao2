@@ -1,0 +1,62 @@
+body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+[hidden] { display: none !important; }
+
+.tela-login { max-width: 320px; margin: 4rem auto; display: grid; gap: .75rem; }
+.tela-login form { display: grid; gap: .5rem; }
+#erro { color: #b91c1c; margin: 0; }
+
+.tela-jogo header { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.tela-jogo h1 { margin: 0; font-size: 1.4rem; }
+
+.grid {
+  display: grid;
+  width: min(90vw, 480px);
+  aspect-ratio: 1;
+  gap: 2px;
+  background: #334155;
+  border: 2px solid #334155;
+}
+.celula {
+  display: flex; align-items: center; justify-content: center;
+  background: #e2e8f0; font-size: clamp(1.2rem, 5vw, 2rem);
+}
+.celula.obstaculo { background: #94a3b8; }
+.celula.destino { background: #bbf7d0; }
+.celula.personagem { background: #bfdbfe; }
+
+.tela-jogo header a, .painel header a { color: #2563eb; }
+.painel header { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.painel h1 { margin: 0; font-size: 1.4rem; }
+
+.lista-fases { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+.btn-fase.ativa { outline: 2px solid #2563eb; }
+#descricao-fase { margin: 0 0 .75rem; color: #475569; }
+
+.controles {
+  display: grid;
+  grid-template-columns: repeat(3, 3rem);
+  grid-template-areas: ". cima ." "esquerda . direita" ". baixo .";
+  gap: .35rem;
+  margin: 1rem 0;
+}
+.controles button { height: 3rem; font-size: 1.25rem; }
+.c-cima { grid-area: cima; }
+.c-esquerda { grid-area: esquerda; }
+.c-direita { grid-area: direita; }
+.c-baixo { grid-area: baixo; }
+
+#mensagem { min-height: 1.5rem; font-weight: 600; }
+.acoes { display: flex; gap: .5rem; }
+
+.cartoes { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+.cartao {
+  display: grid; gap: .25rem; min-width: 9rem; padding: 1rem;
+  border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;
+}
+.cartao .rotulo { color: #64748b; font-size: .85rem; }
+.cartao strong { font-size: 1.6rem; }
+
+.tabela-fases { border-collapse: collapse; width: min(100%, 560px); }
+.tabela-fases th, .tabela-fases td {
+  text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #e2e8f0;
+}

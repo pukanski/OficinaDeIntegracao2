@@ -17,6 +17,8 @@ load_dotenv()
 from app.core.database import Base
 from app.models import user_model  
 
+from app.models import tentativa_model
+
 target_metadata = Base.metadata
 
 config = context.config

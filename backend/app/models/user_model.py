@@ -12,3 +12,4 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     senha_hash = Column(String, nullable=True)  # vai ser nulo para usuários que só logam via google
     criado_em = Column(DateTime(timezone=True), server_default=func.now())
+    google_id = Column(String, unique=True, index=True, nullable=True)
