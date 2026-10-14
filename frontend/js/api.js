@@ -46,5 +46,6 @@ export async function requisitarJson(caminho, opcoes = {}) {
 
 export const listarFases = () => requisitarJson("/fases");
 export const obterStats = () => requisitarJson("/stats");
+export const obterHistorico = (limite = 50) => requisitarJson(`/historico?limite=${limite}`);
 export const enviarProgresso = (dados) =>
   requisitarJson("/progresso", { method: "POST", body: JSON.stringify(dados) });

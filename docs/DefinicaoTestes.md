@@ -33,6 +33,7 @@
 | CT16 | RF09 | E2E | Completar uma fase e recarregar a página | Progresso salvo é mantido após recarregar a página |
 | CT17 | RF10 | Integração | POST /auth/logout invalida a sessão/token | Requisições subsequentes com o token antigo retornam 401 |
 | CT18 | RF11 | Integração | GET /users/me/stats retorna dados de desempenho | Dados batem com o progresso salvo no banco |
+| CT19 | RF11 | Integração | GET /historico retorna as tentativas do usuário, da mais recente para a mais antiga | Lista bate com as tentativas salvas; sem token retorna 401 |
 
 ## 3. Critérios Gerais
 - Todo endpoint novo deve ter pelo menos um teste de integração cobrindo o caso de sucesso e um cobrindo o principal caso de erro.

@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.user_model import User
-from app.schemas.game_schema import FaseOut, ProgressoCreate, ProgressoOut, StatsOut
+from app.schemas.game_schema import FaseOut, ProgressoCreate, ProgressoOut, StatsOut, TentativaOut
 from app.services import progresso_service
 from app.services.progresso_service import FaseBloqueada, FaseNaoEncontrada
 
@@ -33,3 +33,12 @@ def salvar_progresso(
 @router.get("/stats", response_model=StatsOut)
 def obter_stats(usuario: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return progresso_service.calcular_stats(db, usuario.id)
+
+
+@router.get("/historico", response_model=list[TentativaOut])
+def obter_historico(
+    limite: int = Query(50, ge=1, le=200),
+    usuario: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    return progresso_service.listar_historico(db, usuario.id, limite)
