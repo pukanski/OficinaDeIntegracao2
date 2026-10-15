@@ -11,6 +11,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user123 -d ellpDb" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   dbTest:
     image: postgres:16
@@ -22,6 +27,36 @@ services:
       POSTGRES_DB: ellpDbTest
     ports:
       - "5433:5432"
+
+  api:
+    build: ./backend
+    container_name: ellpApi
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://user123:123456@db:5432/ellpDb
+      FRONTEND_URL: http://localhost:5173
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  frontend:
+    build: ./frontend
+    container_name: ellpFrontend
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "5173:80"
 
 volumes:
   postgres_data:
