@@ -8,6 +8,7 @@ from app.schemas.game_schema import (
     ProgressoOut,
     StatsFase,
     StatsOut,
+    TentativaOut,
 )
 from app.services.fase_service import FASES, Fase, obter_fase, simular
 
@@ -127,3 +128,27 @@ def calcular_stats(db: Session, usuario_id: int) -> StatsOut:
         tempo_total_segundos=sum(s.tempo_segundos for s in por_fase),
         por_fase=por_fase,
     )
+
+
+def listar_historico(db: Session, usuario_id: int, limite: int = 50) -> list[TentativaOut]:
+    """Tentativas do usuário, da mais recente para a mais antiga."""
+    tentativas = (
+        db.query(Tentativa)
+        .filter(Tentativa.user_id == usuario_id)
+        .order_by(Tentativa.id.desc())  # o id cresce com o tempo, então desempata sem ambiguidade
+        .limit(limite)
+        .all()
+    )
+    titulos = {f.id: f.titulo for f in FASES}
+    return [
+        TentativaOut(
+            id=t.id,
+            fase_id=t.fase_id,
+            fase_titulo=titulos.get(t.fase_id, f"Fase {t.fase_id}"),
+            concluida=t.concluida,
+            movimentos=t.movimentos,
+            tempo_segundos=t.tempo_segundos,
+            criado_em=t.criado_em,
+        )
+        for t in tentativas
+    ]

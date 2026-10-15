@@ -113,3 +113,30 @@ def test_stats_de_um_usuario_nao_incluem_o_de_outro(db, usuario):
     s = progresso_service.calcular_stats(db, usuario.id)
     assert s.total_tentativas == 0
     assert s.fases_concluidas == 0
+
+
+def test_historico_vem_do_mais_recente_para_o_mais_antigo(db, usuario):  # CT19
+    enviar(db, usuario, 1, ["direita"], tempo=5)      # falha
+    enviar(db, usuario, 1, SOLUCAO_FASE_1, tempo=20)  # sucesso
+
+    h = progresso_service.listar_historico(db, usuario.id)
+    assert [(t.fase_id, t.concluida, t.tempo_segundos) for t in h] == [(1, True, 20), (1, False, 5)]
+    assert h[0].fase_titulo == "Primeiros passos"
+    assert h[0].movimentos == 6
+    assert h[1].movimentos == 1
+
+
+def test_historico_respeita_o_limite(db, usuario):
+    for _ in range(3):
+        enviar(db, usuario, 1, ["direita"])
+
+    assert len(progresso_service.listar_historico(db, usuario.id, limite=2)) == 2
+
+
+def test_historico_de_um_usuario_nao_inclui_o_de_outro(db, usuario):
+    outro = User(nome="Bia", email="bia@email.com")
+    db.add(outro)
+    db.commit()
+    enviar(db, outro, 1, SOLUCAO_FASE_1)
+
+    assert progresso_service.listar_historico(db, usuario.id) == []

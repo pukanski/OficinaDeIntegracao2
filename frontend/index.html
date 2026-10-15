@@ -9,31 +9,41 @@
 <body>
   <p id="carregando">Carregando...</p>
 
-  <main id="conteudo" class="tela-jogo" hidden>
-    <header>
-      <h1 id="titulo-fase"></h1>
-      <span id="nome-usuario"></span>
-      <a href="painel.html">Painel de desempenho</a>
-      <button id="btn-sair" type="button">Sair</button>
+  <main id="conteudo" class="pagina tela-jogo" hidden>
+    <header class="topo">
+      <a class="marca" href="index.html"><span class="marca-icone" aria-hidden="true">🤖</span>ELLP</a>
+      <nav class="topo-nav" aria-label="Principal">
+        <a href="index.html" aria-current="page">Jogo</a>
+        <a href="painel.html">Desempenho</a>
+      </nav>
+      <div class="topo-usuario">
+        <span id="nome-usuario"></span>
+        <button id="btn-sair" class="btn btn-discreto" type="button">Sair</button>
+      </div>
     </header>
 
     <nav id="lista-fases" class="lista-fases" aria-label="Fases"></nav>
-    <p id="descricao-fase"></p>
+
+    <section class="fase-cabecalho">
+      <h1 id="titulo-fase"></h1>
+      <p id="descricao-fase"></p>
+    </section>
 
     <div id="grid" class="grid" data-testid="grid"></div>
 
     <div class="controles" aria-label="Controles de movimento">
-      <button type="button" data-direcao="cima" class="c-cima" aria-label="Cima">↑</button>
-      <button type="button" data-direcao="esquerda" class="c-esquerda" aria-label="Esquerda">←</button>
-      <button type="button" data-direcao="direita" class="c-direita" aria-label="Direita">→</button>
-      <button type="button" data-direcao="baixo" class="c-baixo" aria-label="Baixo">↓</button>
+      <button type="button" data-direcao="cima" class="btn tecla c-cima" aria-label="Cima">↑</button>
+      <button type="button" data-direcao="esquerda" class="btn tecla c-esquerda" aria-label="Esquerda">←</button>
+      <button type="button" data-direcao="direita" class="btn tecla c-direita" aria-label="Direita">→</button>
+      <button type="button" data-direcao="baixo" class="btn tecla c-baixo" aria-label="Baixo">↓</button>
     </div>
+    <p class="dica">Você também pode usar as setas do teclado.</p>
 
     <p id="mensagem" role="status" data-testid="mensagem"></p>
 
     <div class="acoes">
-      <button id="btn-reiniciar" type="button">Reiniciar</button>
-      <button id="btn-proxima" type="button" hidden>Próxima fase</button>
+      <button id="btn-reiniciar" class="btn" type="button">Reiniciar</button>
+      <button id="btn-proxima" class="btn btn-primario" type="button" hidden>Próxima fase</button>
     </div>
   </main>
 

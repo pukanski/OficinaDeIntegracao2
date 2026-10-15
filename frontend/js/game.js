@@ -29,8 +29,15 @@ let inicioTentativa = null; // o relógio começa no primeiro movimento
 let finalizada = false;     // true depois de chegar ao destino: bloqueia novos movimentos
 let enviando = false;
 
-function mostrarMensagem(texto) {
+function mostrarMensagem(texto, tipo = "") {
   el.mensagem.textContent = texto;
+  el.mensagem.dataset.tipo = tipo; // "erro" | "sucesso" | "" (estilo no CSS)
+}
+
+function tremerGrid() {
+  el.grid.classList.remove("tremer");
+  void el.grid.offsetWidth; // reinicia a animação se o jogador insistir na parede
+  el.grid.classList.add("tremer");
 }
 
 function desenhar() {
@@ -97,14 +104,14 @@ async function aoChegar() {
   try {
     const resultado = await registrarTentativa();
     if (!resultado.concluida) {
-      mostrarMensagem("O servidor não validou a conclusão. Reinicie a fase.");
+      mostrarMensagem("O servidor não validou a conclusão. Reinicie a fase.", "erro");
       return;
     }
     const proxima = fases.find((f) => f.id === fase.id + 1);
-    mostrarMensagem(`Fase concluída em ${resultado.movimentos_validos} movimentos! 🎉`);
+    mostrarMensagem(`Fase concluída em ${resultado.movimentos_validos} movimentos! 🎉`, "sucesso");
     el.proxima.hidden = !proxima;
   } catch (erro) {
-    mostrarMensagem(`Não foi possível salvar o progresso: ${erro.message}`);
+    mostrarMensagem(`Não foi possível salvar o progresso: ${erro.message}`, "erro");
   }
 }
 
@@ -112,7 +119,8 @@ function tentarMover(direcao) {
   if (!fase || finalizada || enviando) return;
   const nova = mover(fase, posicao, direcao);
   if (nova === posicao) {
-    mostrarMensagem("Movimento inválido: parede ou limite do grid.");
+    mostrarMensagem("Movimento inválido: parede ou limite do grid.", "erro");
+    tremerGrid();
     return;
   }
   mostrarMensagem("");
@@ -130,7 +138,7 @@ async function reiniciar() {
     try {
       await registrarTentativa();
     } catch (erro) {
-      mostrarMensagem(`Não foi possível salvar a tentativa: ${erro.message}`);
+      mostrarMensagem(`Não foi possível salvar a tentativa: ${erro.message}`, "erro");
     }
   }
   iniciarFase(fases.find((f) => f.id === fase.id));
@@ -163,7 +171,7 @@ try {
   await atualizarFases();
   iniciarFase(escolherFaseInicial());
 } catch (erro) {
-  mostrarMensagem(`Não foi possível carregar as fases: ${erro.message}`);
+  mostrarMensagem(`Não foi possível carregar as fases: ${erro.message}`, "erro");
 }
 
 document.getElementById("carregando").hidden = true;

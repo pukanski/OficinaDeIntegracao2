@@ -6,9 +6,15 @@ const MENSAGENS = {
 };
 
 const elErro = document.getElementById("erro");
+const elAviso = document.getElementById("aviso");
 const mostrarErro = (msg) => { elErro.textContent = msg; elErro.hidden = !msg; };
 
-mostrarErro(MENSAGENS[new URLSearchParams(window.location.search).get("erro")] ?? "");
+const params = new URLSearchParams(window.location.search);
+mostrarErro(MENSAGENS[params.get("erro")] ?? "");
+if (params.get("cadastro") === "ok") {
+  elAviso.textContent = "Conta criada! Entre com seu e-mail e senha.";
+  elAviso.hidden = false;
+}
 
 document.getElementById("form-login").addEventListener("submit", async (evento) => {
   evento.preventDefault();

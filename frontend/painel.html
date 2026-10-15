@@ -9,36 +9,70 @@
 <body>
   <p id="carregando">Carregando...</p>
 
-  <main id="conteudo" class="painel" hidden>
-    <header>
-      <h1>Painel de desempenho</h1>
-      <a href="index.html">Voltar ao jogo</a>
-      <button id="btn-sair" type="button">Sair</button>
+  <main id="conteudo" class="pagina painel" hidden>
+    <header class="topo">
+      <a class="marca" href="index.html"><span class="marca-icone" aria-hidden="true">🤖</span>ELLP</a>
+      <nav class="topo-nav" aria-label="Principal">
+        <a href="index.html">Jogo</a>
+        <a href="painel.html" aria-current="page">Desempenho</a>
+      </nav>
+      <div class="topo-usuario">
+        <span id="nome-usuario"></span>
+        <button id="btn-sair" class="btn btn-discreto" type="button">Sair</button>
+      </div>
     </header>
 
-    <p id="erro" role="alert" hidden></p>
+    <h1 class="painel-titulo">Painel de desempenho</h1>
 
-    <section class="cartoes">
-      <div class="cartao">
-        <span class="rotulo">Fases concluídas</span>
-        <strong id="fases-concluidas" data-testid="fases-concluidas"></strong>
+    <p id="erro" class="alerta alerta-erro" role="alert" hidden></p>
+
+    <section class="caixa" aria-label="Resumo">
+      <div class="resumo-itens">
+        <div class="resumo-item">
+          <span class="rotulo">Fases concluídas</span>
+          <strong id="fases-concluidas" data-testid="fases-concluidas"></strong>
+        </div>
+        <div class="resumo-item">
+          <span class="rotulo">Tentativas</span>
+          <strong id="total-tentativas" data-testid="total-tentativas"></strong>
+        </div>
+        <div class="resumo-item">
+          <span class="rotulo">Tempo gasto</span>
+          <strong id="tempo-total" data-testid="tempo-total"></strong>
+        </div>
       </div>
-      <div class="cartao">
-        <span class="rotulo">Tentativas</span>
-        <strong id="total-tentativas" data-testid="total-tentativas"></strong>
-      </div>
-      <div class="cartao">
-        <span class="rotulo">Tempo gasto</span>
-        <strong id="tempo-total" data-testid="tempo-total"></strong>
+      <div id="barra-progresso" class="barra" role="progressbar" aria-label="Fases concluídas" aria-valuemin="0" aria-valuenow="0" aria-valuemax="0">
+        <span></span>
       </div>
     </section>
 
-    <table class="tabela-fases">
-      <thead>
-        <tr><th>Fase</th><th>Situação</th><th>Tentativas</th><th>Tempo</th></tr>
-      </thead>
-      <tbody id="tabela-fases"></tbody>
-    </table>
+    <section class="secao">
+      <h2>Por fase</h2>
+      <div class="tabela-rolagem">
+        <table class="tabela tabela-fases">
+          <thead>
+            <tr><th>Fase</th><th>Situação</th><th class="num">Tentativas</th><th class="num">Tempo</th></tr>
+          </thead>
+          <tbody id="tabela-fases"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="secao">
+      <h2>Histórico de tentativas</h2>
+      <p id="historico-nota" class="nota" hidden></p>
+      <p id="historico-vazio" class="vazio" hidden>
+        Você ainda não fez nenhuma tentativa. <a href="index.html">Vá para o jogo</a> e comece pela fase 1.
+      </p>
+      <div id="historico-tabela" class="tabela-rolagem" hidden>
+        <table class="tabela">
+          <thead>
+            <tr><th>Quando</th><th>Fase</th><th>Resultado</th><th class="num">Movimentos</th><th class="num">Tempo</th></tr>
+          </thead>
+          <tbody id="tabela-historico"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <script type="module" src="js/painel.js"></script>

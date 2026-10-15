@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -54,3 +55,13 @@ class StatsOut(BaseModel):
     total_tentativas: int
     tempo_total_segundos: int
     por_fase: list[StatsFase]
+
+
+class TentativaOut(BaseModel):
+    id: int
+    fase_id: int
+    fase_titulo: str
+    concluida: bool
+    movimentos: int
+    tempo_segundos: int
+    criado_em: datetime | None
