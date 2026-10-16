@@ -28,12 +28,11 @@
 
 **Decisões de arquitetura:**
 - Separação clara entre front-end e back-end, comunicando via API REST.
-- Camada de serviço isolada dos controllers, para poder ser testada isoladamente.
 - Autenticação google isolada em um módulo de infraestrutura.
 
 ## 3. Tecnologias
 
-| Camada | Tecnologia sugerida |
+| Camada | Tecnologia |
 |--------|----------------------|
 | Linguagem back-end | Python |
 | Framework web | FastAPI |
@@ -78,20 +77,19 @@
 ## 6. Backlog Inicial
 
 **Sprint 1:**
-- [ ] Setup do repositório e ambiente
-- [ ] Cadastro de usuário
-- [ ] Login com e-mail/senha
-- [ ] Login com google
-- [ ] Renderização do grid e personagem
-- [ ] Movimentação via botões na tela
-- [ ] Movimentação via teclado
-- [ ] Testes unitários e de integração da sprint 1
-- [ ] Vídeo de sprint review
+- [x] Setup do repositório e ambiente
+- [x] Cadastro de usuário
+- [x] Login com e-mail/senha
+- [x] Login com google
+- [x] Renderização do grid e personagem
+- [x] Movimentação via botões na tela
+- [x] Movimentação via teclado
+- [x] Testes unitários e de integração da sprint 1
+- [x] Sistema de fases/desafios
+- [x] Validação de obstáculos/limites do grid
+- [x] Persistência de progresso do usuário
+- [x] Logout
 
 **Sprint 2:**
-- [ ] Sistema de fases/desafios
-- [ ] Validação de obstáculos/limites do grid
-- [ ] Persistência de progresso do usuário
-- [ ] Logout
-- [ ] Testes unitários e de integração da sprint 2
 - [ ] Vídeo de sprint review
+- [ ] Testes unitários e de integração da sprint 2
